@@ -85,7 +85,6 @@
 				0400D70E29859381007A7393 /* PostViewController.swift */,
 				0400D71329859AC7007A7393 /* InfoViewController.swift */,
 				0400D711298596D3007A7393 /* Post.swift */,
-				0400D70C29858DB2007A7393 /* ProfileViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -93,6 +92,7 @@
 		0412E290299E17E4005C2DA9 /* profile */ = {
 			isa = PBXGroup;
 			children = (
+				0400D70C29858DB2007A7393 /* ProfileViewController.swift */,
 				0412E291299E180B005C2DA9 /* LogInViewController.swift */,
 			);
 			path = profile;
