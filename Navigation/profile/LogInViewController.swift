@@ -47,6 +47,14 @@ class LogInViewController: UIViewController {
         
         return button
     }()
+    
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "logo")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+        
+    }()
 
 
     override func viewDidLoad() {
@@ -56,6 +64,7 @@ class LogInViewController: UIViewController {
         view.addSubview(emailField)
         view.addSubview(passwordField)
         view.addSubview(button)
+        view.addSubview(imageView)
     }
     
 }
