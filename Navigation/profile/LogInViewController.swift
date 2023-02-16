@@ -39,12 +39,32 @@ class LogInViewController: UIViewController {
             field.isSecureTextEntry = true
             return field
         }()
+    
+    private let button: UIButton = {
+        let button = UIButton()
+        button.setTitle("button", for: .normal)
+        button.frame = CGRect(x: 100, y: 100, width: 50, height: 50)
+        
+        return button
+    }()
+    
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "logo")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+        
+    }()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
        
+        view.addSubview(emailField)
+        view.addSubview(passwordField)
+        view.addSubview(button)
+        view.addSubview(imageView)
     }
     
 }
