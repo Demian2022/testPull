@@ -39,12 +39,23 @@ class LogInViewController: UIViewController {
             field.isSecureTextEntry = true
             return field
         }()
+    
+    private let button: UIButton = {
+        let button = UIButton()
+        button.setTitle("button", for: .normal)
+        button.frame = CGRect(x: 100, y: 100, width: 50, height: 50)
+        
+        return button
+    }()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
        
+        view.addSubview(emailField)
+        view.addSubview(passwordField)
+        view.addSubview(button)
     }
     
 }
