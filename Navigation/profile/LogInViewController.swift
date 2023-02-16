@@ -67,4 +67,9 @@ class LogInViewController: UIViewController {
         view.addSubview(imageView)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        view.frame = view.bounds
+    }
+    
 }
