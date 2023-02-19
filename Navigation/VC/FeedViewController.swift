@@ -24,13 +24,11 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        title = "лента"
         view.backgroundColor = .systemGray
-        
         postButton.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
         
         view.addSubview(postButton)
-
     }
     
     override func viewDidLayoutSubviews() {
