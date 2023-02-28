@@ -9,47 +9,70 @@ import UIKit
 
 class FeedViewController: UIViewController {
         
-//    var post = Post(title: "Мой пост")
-    
-    private lazy var  postButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Показать пост", for: .normal)
-        button.backgroundColor = .link
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        button.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemGray
-        
-        view.addSubview(postButton)
-    
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        postButton.frame = CGRect(x: 100, y: 100, width: 250, height: 50)
-        postButton.center = self.view.center
+    var post = Post(title: "Мой пост")
+          
+       private let stackView: UIStackView = {
+           let stackView = UIStackView()
+           stackView.axis = .vertical
+           stackView.distribution = .equalCentering
+           stackView.spacing = 10
+           stackView.translatesAutoresizingMaskIntoConstraints = false
+           
+           return stackView
+       }()
+      
+       private let button: UIButton = {
+           let button = UIButton()
+           button.setTitle("button", for: .normal)
+           button.backgroundColor = .blue
+           
+           return button
+       }()
+       
+       @objc func buttonPressed(_ sender: UIButton) {
+           let post = PostViewController(post: post)
+           self.navigationController?.pushViewController(post, animated: true)
+
+       }
+       
+       private  let buttonTwo: UIButton = {
+           let buttonTwo = UIButton()
+           buttonTwo.setTitle("buttonTwo", for: .normal)
+           buttonTwo.backgroundColor = .red
+           
+           return buttonTwo
+       }()
+       
+       @objc func buttonPressedTwo(_ sender: UIButton) {
+           let post = PostViewController(post: post)
+           self.navigationController?.pushViewController(post, animated: true)
+       }
+       
+       override func viewDidLoad() {
+           super.viewDidLoad()
+           
+           title = "Лента"
+           view.backgroundColor = .systemGray
+           view.addSubview(stackView)
+           setupConstraints()
+           
+           stackView.addArrangedSubview(button)
+           stackView.addArrangedSubview(buttonTwo)
+           
+           button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+           buttonTwo.addTarget(self, action: #selector(buttonPressedTwo), for: .touchUpInside)
+           
+       }
+          
+       private func setupConstraints() {
+           NSLayoutConstraint.activate([
                
-    }
-    
-    @objc private func postButtonTapped(sender: UIButton) {
-        let post = Post(title: "Мой пост")
-        let postVC = PostViewController(post: post)
-        
-  
-        
-//        postViewController.title = post.title
-//        postViewController.titlePost = post.title
-//        navigationController?.pushViewController()
-        
-        navigationController?.pushViewController(postVC, animated: true)
-    }
+               stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+               stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+               
+           ])
+       }
+
 }
     
 
