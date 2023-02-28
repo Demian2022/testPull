@@ -8,10 +8,10 @@
 import UIKit
 
 class FeedViewController: UIViewController {
+        
+//    var post = Post(title: "Мой пост")
     
-    var post = Post(title: "Мой пост")
-    
-    private let postButton: UIButton = {
+    private lazy var  postButton: UIButton = {
         let button = UIButton()
         button.setTitle("Показать пост", for: .normal)
         button.backgroundColor = .link
@@ -19,16 +19,16 @@ class FeedViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        title = "лента"
         view.backgroundColor = .systemGray
-        postButton.addTarget(self, action: #selector(postButtonTapped), for: .touchUpInside)
         
         view.addSubview(postButton)
+    
     }
     
     override func viewDidLayoutSubviews() {
@@ -39,9 +39,16 @@ class FeedViewController: UIViewController {
     }
     
     @objc private func postButtonTapped(sender: UIButton) {
-        let postViewController = PostViewController()
-        postViewController.titlePost = post.title
-        self.navigationController?.pushViewController(postViewController, animated: true)
+        let post = Post(title: "Мой пост")
+        let postVC = PostViewController(post: post)
+        
+  
+        
+//        postViewController.title = post.title
+//        postViewController.titlePost = post.title
+//        navigationController?.pushViewController()
+        
+        navigationController?.pushViewController(postVC, animated: true)
     }
 }
     
