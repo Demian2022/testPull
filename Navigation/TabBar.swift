@@ -17,7 +17,7 @@ class TabBar: UITabBarController {
         
             func setupControllers() {
                 let feedVC = createController(viewController: FeedViewController(), itemName: "Лента", ItemImage: "doc.richtext")
-                let logInVC = createController(viewController: LogInViewController(), itemName: "Профиль", ItemImage: "person.circle")
+                let logInVC = createController(viewController: LogInVC(), itemName: "Профиль", ItemImage: "person.circle")
                 logInVC.navigationBar.isHidden = true
                 viewControllers = [feedVC, logInVC]
               

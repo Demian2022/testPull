@@ -9,7 +9,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
 
-    private let allertButton: UIButton = {
+    private lazy var allertButton: UIButton = {
         let button = UIButton()
         button.setTitle("Allert", for: .normal)
         button.backgroundColor = .link
@@ -17,16 +17,13 @@ class InfoViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.addTarget(self, action: #selector(allertButtonTapped), for: .touchUpInside)
         return button
     }()
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            
             view.backgroundColor = .systemGray
-            
-            allertButton.addTarget(self, action: #selector(allertButtonTapped), for: .touchUpInside)
-            
             view.addSubview(allertButton)
         }
     
@@ -39,19 +36,35 @@ class InfoViewController: UIViewController {
     
     @objc private func allertButtonTapped(sender: UIButton) {
         showActionShett()
+     
+//        let alert = UIAlertController(title: "перейти назад", message: .none, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "отмена", style: .cancel))
+//        alert.addAction(UIAlertAction(title: "удалить", style: .destructive))
+//
+//        alert.addAction(UIAlertAction(title: "назад", style: .default) { _ in
+//            self.dismiss(animated: true)
+//
+//
+//
+//        })
+//        self.present(alert, animated: true)
     }
 
         private func showActionShett() {
             let actionsheet = UIAlertController(title: title, message: .none, preferredStyle: .actionSheet)
-            actionsheet.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { action in
+
+            actionsheet.addAction(UIAlertAction(title: "продолжить", style: .default, handler: { _ in             
                 print("tapped Dismiss")
             }))
-            actionsheet.addAction(UIAlertAction(title: "Add", style: .default, handler: { action in
+            actionsheet.addAction(UIAlertAction(title: "удалить", style: .destructive, handler: { _ in
                 print("tapped Dismiss")
             }))
-            actionsheet.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+            
+            actionsheet.addAction(UIAlertAction(title: "назад", style: .cancel) { _ in
+                self.dismiss(animated: true)
                 print("tapped Dismiss")
-            }))
+            })
+            
             present(actionsheet, animated: true)
             
         }
