@@ -9,35 +9,72 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    private let profileHV: ProfileHeaderView = {
-        let profileHV = ProfileHeaderView()
-        profileHV.backgroundColor = .systemGray
-        profileHV.translatesAutoresizingMaskIntoConstraints = false
-        return profileHV
-    }()
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = "Профиль"
-        view.backgroundColor = .systemGray
-        self.view.addSubview(profileHV)
-        self.navigationController?.navigationBar.isHidden = true
+    //    private let photosCVC = PhotosCollectionViewCell()
         
+        let postModal = PostModal.myPostModel()
+
+           private lazy var tableView: UITableView = {
+               let tableView = UITableView(frame: .zero, style: .grouped)
+               tableView.dataSource = self
+               tableView.delegate = self
+               tableView.translatesAutoresizingMaskIntoConstraints = false
+               tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+               return tableView
+           }()
+           
+           override func viewDidLoad() {
+               super.viewDidLoad()
+               view.backgroundColor = .white
+               navigationController?.navigationBar.isHidden = true
+               constraints()
+           }
+           
+           private func constraints() {
+               view.addSubview(tableView)
+    //           view.addSubview(photosCVC)
+               
+               NSLayoutConstraint.activate([
+                   tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                   tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                   tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                   tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                   
+                   
+    //               photosCVC.topAnchor
+                   
+               ])
+           }
+           
+       }
+
+    //MARK: - UITableViewDataSource
+    extension ProfileViewController: UITableViewDataSource {
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return postModal.count
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            cell.setupCell(model: postModal[indexPath.row])
+            return cell
+        }
+        
+    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //        let header = ProfileHederView()
+    //        header.backgroundColor = .systemGray4
+    //        return header
+    //    }
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    //MARK: - UITableViewDelegate
+    extension ProfileViewController: UITableViewDelegate {
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return UITableView.automaticDimension
+        }
         
-        NSLayoutConstraint.activate([
-            profileHV.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            profileHV.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            profileHV.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            profileHV.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            profileHV.heightAnchor.constraint(equalToConstant: 220)
-        ])
-        
-        
-    }
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return UITableView.automaticDimension
+            
+        }
+
     
 }
